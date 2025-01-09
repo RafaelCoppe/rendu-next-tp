@@ -1,0 +1,155 @@
+/* Définir la couleur du fond global */
+.app {
+    display: flex;
+    flex-direction: column;
+    background-color: red; /* Fond rouge global */
+    margin: 0;
+  }
+  
+  /* Style de la topbar */
+  .topbar {
+    background-color: red; /* Couleur de fond rouge pour la topbar */
+    color: white;
+    padding: 10px;
+    margin-left: 5px; /* Marges de quelques pixels sur la gauche */
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }  
+
+  /* Alignement horizontal des éléments de filtre */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Champs de saisie */
+.search-input,
+.multi-select,
+.limit_select {
+  padding: 5px 10px;
+  border-radius: 20px; /* Bords arrondis */
+  border: 1px solid #ddd;
+  font-size: 14px;
+  color: black; /* Écriture noire */
+  background-color: white; /* Fond blanc */
+  outline: none;
+}
+
+/* Icône et style de recherche */
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-input {
+  background-image: url('https://img.icons8.com/ios-glyphs/30/red/search.png'); /* Icône rouge */
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  padding-left: 40px; /* Pour laisser de la place à l'icône */
+}
+
+.multi-select {
+  height: 35px;
+}
+
+/* Sentinel pour observer le bas de la liste */
+.sentinel {
+  height: 1px;
+  width: 100%;
+  background-color: transparent;
+}
+
+/* Ajout d'une animation de chargement */
+.loading {
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+  margin: 10px 0;
+}
+
+.loading {
+  height: 35px;
+}
+
+/* Survol des champs */
+.search-input:hover,
+.multi-select:hover,
+.limit_select:hover {
+  border-color: #aaa;
+}
+
+/* Survol et focus */
+.search-input:focus,
+.multi-select:focus,
+.limit_select:focus {
+  border-color: red;
+}
+  
+  /* Style du contenu principal */
+  .main {
+    flex: 1;
+    background-color: white; /* Fond blanc pour la zone principale */
+    padding: 20px;
+    margin-left: 5px;;
+    height: 100%; /* Assure que la div prend toute la hauteur restante */
+  }
+
+  .pokemons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .pokemons > .pokemon-card {
+    flex: 1 1 calc(12% - 16px); /* 12.5% pour 8 éléments par ligne (-16px pour le gap) */
+    max-width: calc(12% - 16px); /* Assure que les éléments ne dépassent pas cette taille */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+  }
+  
+  .pokemon-card {
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+    margin: 10px; /* Margin around the card */
+    padding: 10px; /* Padding inside the card */
+    background-color: white; /* Background color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 200px;
+    position: relative; /* For positioning the number */
+  }
+  
+  .pokemon-image img {
+    border-radius: 50%; /* Optional: rounded image */
+    margin: 10px 20px 0 20px; /* Margin: top 10px, sides 20px, bottom 10px */
+    width: 120px;
+    height: 120px;
+  }
+  
+  .pokemon-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1em; /* Smaller text */
+    color: gray; /* Black text */
+    font-weight: bold;
+  }
+  
+  .pokemon-name {
+    color: black;
+    font-size: 1.25em;
+  }
+
+  .pokemon-types {
+    display: flex;
+  }
+
+  .pokemon-types-image {
+    width: 24px;
+    height: 24px;
+  }
