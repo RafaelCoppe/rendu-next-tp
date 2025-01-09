@@ -5,7 +5,7 @@
 - Popup avec stats
 
 ## Qu'est-ce qui ne fonctionne pas ?
-- Reload infini sur le nom du pokémon
+- Reload infini sur le nom du pokémon (enlevé de l'url pour éviter la boucle infinie)
 - Erreur d'hydration au lancement ?!
 - Pas d'évolutions dans la popup
 
