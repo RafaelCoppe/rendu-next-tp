@@ -28,8 +28,7 @@
 }
 
 /* Champs de saisie */
-.search-input,
-.multi-select,
+.name-input,
 .limit_select {
   padding: 5px 10px;
   border-radius: 20px; /* Bords arrondis */
@@ -41,20 +40,16 @@
 }
 
 /* Icône et style de recherche */
-.search-input::placeholder {
+.name-input::placeholder {
   color: #aaa;
 }
 
-.search-input {
+.name-input {
   background-image: url('https://img.icons8.com/ios-glyphs/30/red/search.png'); /* Icône rouge */
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: 10px center;
   padding-left: 40px; /* Pour laisser de la place à l'icône */
-}
-
-.multi-select {
-  height: 35px;
 }
 
 /* Sentinel pour observer le bas de la liste */
@@ -77,15 +72,13 @@
 }
 
 /* Survol des champs */
-.search-input:hover,
-.multi-select:hover,
+.name-input:hover,
 .limit_select:hover {
   border-color: #aaa;
 }
 
 /* Survol et focus */
-.search-input:focus,
-.multi-select:focus,
+.name-input:focus,
 .limit_select:focus {
   border-color: red;
 }

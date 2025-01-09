@@ -3,22 +3,43 @@ import React, { useEffect, useState, useRef } from 'react';
 import Image from "next/image";
 import './app.css';
 import PokemonCard from './PokemonCard';
+import Select from 'react-select'
 
 export default function Home() {
   const [pokemons, setPokemons] = useState([]); // Liste des Pokémon
   const [isLoading, setIsLoading] = useState(false); // Indicateur de chargement
-  const [page, setPage] = useState(1); // Page courante
+
   const [limit, setLimit] = useState("50"); // Limite des résultats par page
+  const [name, setName] = useState(""); // Limite des résultats par page
+  const [page, setPage] = useState(1); // Page courante
+  const [types, setTypes] = useState([]); // Liste des types de Pokémon
+  const [selectedTypes, setSelectedTypes] = useState([]); // Types sélectionnés
 
   const sentinelRef = useRef(null); // Référence pour l'observateur
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  // Charger les types de Pokémon
+  const fetchTypes = async () => {
+    try {
+      const response = await fetch("https://nestjs-pokedex-api.vercel.app/types");
+      const data = await response.json();
+      data.map((type) => {
+        type.value = type.id;
+        type.label = type.name;
+      });
+      setTypes(data); // Stocker les types récupérés
+    } catch (error) {
+      console.error('Error fetching types:', error);
+    }
+  };
+
   // Charger les Pokémon
   const fetchPokemons = async (currentPage) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&page=${currentPage}`);
+      const url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
+      const response = await fetch(url);
       const data = await response.json();
       if (currentPage > 1) {
         await delay(1000); // Attente pour un effet visuel
@@ -33,8 +54,9 @@ export default function Home() {
 
   // Charger la première page au montage
   useEffect(() => {
+    fetchTypes(); // Charger les types de Pokémon
     fetchPokemons(page);
-  }, [page]);
+  }, [page, limit, name]);
 
   // Observateur pour détecter la visibilité du sentinel
   useEffect(() => {
@@ -68,21 +90,31 @@ export default function Home() {
           <span>Pokedex</span>
         </div>
         <div className="filters">
-          <input type="text" placeholder="Rechercher un Pokémon" className="search-input" />
-          <select multiple className="multi-select">
-            <option value="fire">Feu</option>
-            <option value="water">Eau</option>
-            <option value="grass">Plante</option>
-          </select>
+          <input type="text" placeholder="Rechercher un Pokémon" className="name-input" onChange={(e) => {
+            setName(e.target.value);
+            setPokemons([]);
+            setPage(1);
+          }}/>
+          <Select
+            isMulti
+            options={types}
+            className="multi-select"
+            placeholder="Filtrer par type"
+            onChange={(selected) => {
+              setSelectedTypes(selected);
+              setPokemons([]);
+              setPage(1);
+            }}
+            />
           <select
             className="limit_select"
+            defaultValue={"50"}
             onChange={(e) => {
               setLimit(e.target.value);
               setPokemons([]);
               setPage(1);
             }}
           >
-            <option value="50">Limit</option>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
