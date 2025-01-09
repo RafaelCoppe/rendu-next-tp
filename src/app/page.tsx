@@ -42,7 +42,7 @@ export default function Home() {
   const fetchPokemons = async (currentPage) => {
     setIsLoading(true);
     try {
-      let url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
+      let url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&page=${currentPage}`;
       if (selectedTypes.length > 0) {
         const queryStringTypes = selectedTypes.map(type => `types[]=${type.id}`).join('&');
         url += `&${queryStringTypes}`;
