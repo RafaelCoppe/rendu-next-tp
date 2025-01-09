@@ -146,3 +146,117 @@
     width: 24px;
     height: 24px;
   }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px; /* Augmenter la largeur */
+    text-align: center;
+    position: relative;
+    display: flex; /* Utilisation du flexbox pour disposer l'image et les stats */
+  }
+  
+  .pokemon-modal-header {
+    margin-bottom: 20px;
+  }
+  
+  .pokemon-modal-image {
+    width: 150px; /* Image plus grande */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 20px 0 0; /* Décalage à droite */
+  }
+  
+  .pokemon-modal-name {
+    color: black;
+    font-size: 18px; /* Taille du texte du nom */
+  }
+
+  .pokemon-modal-types {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .pokemon-modal-number {
+    font-size: 14px;
+    color: gray; /* Numéro plus petit et gris */
+  }
+  
+  .pokemon-stats {
+    color: black;
+    text-align: left;
+    flex: 1; /* Prend tout l'espace restant */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stat {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px 10px;
+  }
+  
+  .close-btn:hover {
+    background-color: darkred;
+  }
+  
+  .pokemon-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .pokemon-stats-table th,
+  .pokemon-stats-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .pokemon-stats-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .pokemon-stats-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .pokemon-stats-table tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .pokemon-stats-table td {
+    font-size: 14px;
+  }
+  
+  

@@ -4,22 +4,26 @@ import Image from "next/image";
 import './app.css';
 import PokemonCard from './PokemonCard';
 import Select from 'react-select'
+import PokemonModal from './PokemonModal';
 
 export default function Home() {
-  const [pokemons, setPokemons] = useState([]); // Liste des Pokémon
-  const [isLoading, setIsLoading] = useState(false); // Indicateur de chargement
+  const [pokemons, setPokemons] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [limit, setLimit] = useState("50"); // Limite des résultats par page
-  const [name, setName] = useState(""); // Limite des résultats par page
-  const [page, setPage] = useState(1); // Page courante
-  const [types, setTypes] = useState([]); // Liste des types de Pokémon
-  const [selectedTypes, setSelectedTypes] = useState([]); // Types sélectionnés
+  const [limit, setLimit] = useState("50");
+  const [name, setName] = useState("");
+  const [page, setPage] = useState(1);
+  const [types, setTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
-  const sentinelRef = useRef(null); // Référence pour l'observateur
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sentinelRef = useRef(null); // Observateur pour le scroll et chargement des pokémons
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  // Charger les types de Pokémon
+  // Chargement des types
   const fetchTypes = async () => {
     try {
       const response = await fetch("https://nestjs-pokedex-api.vercel.app/types");
@@ -28,23 +32,24 @@ export default function Home() {
         type.value = type.id;
         type.label = type.name;
       });
-      setTypes(data); // Stocker les types récupérés
+      setTypes(data);
     } catch (error) {
       console.error('Error fetching types:', error);
     }
   };
 
-  // Charger les Pokémon
+  // Chargement des pokémons
   const fetchPokemons = async (currentPage) => {
     setIsLoading(true);
     try {
       const url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
       const response = await fetch(url);
       const data = await response.json();
+      console.log(data[0]);
       if (currentPage > 1) {
-        await delay(1000); // Attente pour un effet visuel
+        await delay(1000);
       }
-      setPokemons((prevPokemons) => [...prevPokemons, ...data]); // Ajouter les nouveaux Pokémon
+      setPokemons((prevPokemons) => [...prevPokemons, ...data]);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -52,9 +57,8 @@ export default function Home() {
     }
   };
 
-  // Charger la première page au montage
   useEffect(() => {
-    fetchTypes(); // Charger les types de Pokémon
+    fetchTypes();
     fetchPokemons(page);
   }, [page, limit, name]);
 
@@ -81,6 +85,16 @@ export default function Home() {
       }
     };
   }, [isLoading]);
+    
+  const openModal = (pokemon) => {
+    setSelectedPokemon(pokemon);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPokemon(null);
+  };
 
   return (
     <div className="app">
@@ -105,7 +119,7 @@ export default function Home() {
               setPokemons([]);
               setPage(1);
             }}
-            />
+          />
           <select
             className="limit_select"
             defaultValue={"50"}
@@ -125,6 +139,7 @@ export default function Home() {
       <div className="main">
         <div className="pokemons">
           {pokemons.map((pokemon) => (
+            <div key={pokemon.pokedexId} onClick={() => openModal(pokemon)}>
             <PokemonCard
               key={pokemon.pokedexId}
               pokedexId={pokemon.pokedexId}
@@ -132,11 +147,19 @@ export default function Home() {
               image={pokemon.image}
               types={pokemon.types}
             />
+            </div>
           ))}
         </div>
         {isLoading && <div className="loading">Chargement...</div>}
         <div ref={sentinelRef} className="sentinel"></div> {/* Sentinel */}
       </div>
+
+      {isModalOpen && selectedPokemon && (
+        <PokemonModal
+          pokemon={selectedPokemon}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
