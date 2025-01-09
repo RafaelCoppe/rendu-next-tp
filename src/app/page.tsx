@@ -42,9 +42,8 @@ export default function Home() {
   const fetchPokemons = async (currentPage) => {
     setIsLoading(true);
     try {
-      debugger;
       let url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
-      if(selectedTypes.length > 0) {
+      if (selectedTypes.length > 0) {
         const queryStringTypes = selectedTypes.map(type => `types[]=${type.id}`).join('&');
         url += `&${queryStringTypes}`;
       }
@@ -89,7 +88,7 @@ export default function Home() {
       }
     };
   }, [isLoading]);
-    
+
   const openModal = (pokemon) => {
     setSelectedPokemon(pokemon);
     setIsModalOpen(true);
@@ -112,7 +111,7 @@ export default function Home() {
             setName(e.target.value);
             setPokemons([]);
             setPage(1);
-          }}/>
+          }} />
           <Select
             isMulti
             options={types}
@@ -144,13 +143,13 @@ export default function Home() {
         <div className="pokemons">
           {pokemons.map((pokemon) => (
             <div key={pokemon.pokedexId} onClick={() => openModal(pokemon)}>
-            <PokemonCard
-              key={pokemon.pokedexId}
-              pokedexId={pokemon.pokedexId}
-              name={pokemon.name}
-              image={pokemon.image}
-              types={pokemon.types}
-            />
+              <PokemonCard
+                key={pokemon.pokedexId}
+                pokedexId={pokemon.pokedexId}
+                name={pokemon.name}
+                image={pokemon.image}
+                types={pokemon.types}
+              />
             </div>
           ))}
         </div>

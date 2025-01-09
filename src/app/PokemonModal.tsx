@@ -9,21 +9,21 @@ const PokemonModal = ({ pokemon, onClose }) => (
         <img src={pokemon.image} alt={pokemon.name} className="pokemon-modal-image" />
         <h2 className='pokemon-modal-name'>{`#${pokemon.pokedexId} - ${pokemon.name}`}</h2>
         <div className="pokemon-modal-types">
-            {pokemon.types.map((type, typeId) => (
-                <img key={`${pokemon.pokedexId}_${typeId}`} src={type.image} alt={type.name} className='pokemon-types-image' />
-            ))}
+          {pokemon.types.map((type, typeId) => (
+            <img key={`${pokemon.pokedexId}_${typeId}`} src={type.image} alt={type.name} className='pokemon-types-image' />
+          ))}
         </div>
       </div>
       <div className="pokemon-stats">
         <table className='pokemon-stats-table'>
-        {Object.keys(pokemon.stats).map((index) => (
-          <div key={index} className="stat">
-            <tr>
-              <td>{index}</td>
-              <td>{pokemon.stats[index]}</td>
-            </tr>
-          </div>
-        ))}
+          {Object.keys(pokemon.stats).map((index) => (
+            <div key={index} className="stat">
+              <tr>
+                <td>{index}</td>
+                <td>{pokemon.stats[index]}</td>
+              </tr>
+            </div>
+          ))}
         </table>
       </div>
     </div>
