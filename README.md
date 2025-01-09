@@ -7,7 +7,7 @@
 ## Qu'est-ce qui ne fonctionne pas ?
 - Reload infini sur le nom du pokémon
 - Erreur d'hydration au lancement ?!
-- Pas d'évolutions
+- Pas d'évolutions dans la popup
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
