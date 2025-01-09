@@ -42,10 +42,14 @@ export default function Home() {
   const fetchPokemons = async (currentPage) => {
     setIsLoading(true);
     try {
-      const url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
+      debugger;
+      let url = `https://nestjs-pokedex-api.vercel.app/pokemons?limit=${limit}&name=${name}&page=${currentPage}`;
+      if(selectedTypes.length > 0) {
+        const queryStringTypes = selectedTypes.map(type => `types[]=${type.id}`).join('&');
+        url += `&${queryStringTypes}`;
+      }
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data[0]);
       if (currentPage > 1) {
         await delay(1000);
       }
@@ -60,7 +64,7 @@ export default function Home() {
   useEffect(() => {
     fetchTypes();
     fetchPokemons(page);
-  }, [page, limit, name]);
+  }, [page, limit, name, selectedTypes]);
 
   // Observateur pour détecter la visibilité du sentinel
   useEffect(() => {
